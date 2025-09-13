@@ -1,1 +1,502 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Portfolio</title>
+    <style>
+        :root {
+            --bg-primary: #191919;
+            --bg-secondary: #1e1e1e;
+            --bg-hover: #2a2a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #999;
+            --text-muted: #666;
+            --accent: #5865f2;
+            --accent-dim: #4752c4;
+            --border: #333;
+            --code-bg: #0d0d0d;
+            --selection: #5865f230;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            background: var(--selection);
+            color: var(--accent);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            margin: 3rem 0 4rem 0;
+            position: relative;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .status-indicator:hover {
+            border-color: var(--accent);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .bio {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            opacity: 0.1;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-dim);
+            background: var(--bg-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.813rem;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .tech-tag:hover {
+            color: var(--accent);
+            border-color: var(--accent-dim);
+        }
+
+        .links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .link-button:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .link-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .skill-category-title {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .skill-item {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .terminal-prompt {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            color: var(--accent);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.125rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Available for opportunities</span>
+            </div>
+            <h1>Laraib Zafar Khan</h1>
+            <div class="subtitle">Software Developer & Systems Architect</div>
+            <p class="bio">
+                Building elegant solutions to complex problems. Passionate about distributed systems, 
+                clean code, and pushing the boundaries of what's possible with technology.
+            </p>
+            <div class="links">
+                <a href="https://github.com/laraibzk" class="link-button">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+                <a href="https://linkedin.com/in/laraib-zafar-khan" class="link-button">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="mailto:laraib1zk@gmail.com" class="link-button">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    Email
+                </a>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <div class="card" onclick="window.open('https://github.com/yourusername/project1', '_blank')">
+                <div class="card-header">
+                    <div class="card-title">Distributed Task Scheduler</div>
+                    <div class="card-meta">2024</div>
+                </div>
+                <p class="card-description">
+                    High-performance distributed task scheduling system built with Go. Handles millions of jobs daily with 
+                    automatic failover and load balancing.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Go</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">gRPC</span>
+                    <span class="tech-tag">Kubernetes</span>
+                </div>
+            </div>
+
+            <div class="card" onclick="window.open('https://github.com/yourusername/project2', '_blank')">
+                <div class="card-header">
+                    <div class="card-title">Neural Network Visualizer</div>
+                    <div class="card-meta">2024</div>
+                </div>
+                <p class="card-description">
+                    Interactive web-based tool for visualizing and understanding neural network architectures in real-time. 
+                    Used by 5000+ ML students worldwide.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">WebGL</span>
+                    <span class="tech-tag">TensorFlow.js</span>
+                </div>
+            </div>
+
+            <div class="card" onclick="window.open('https://github.com/yourusername/project3', '_blank')">
+                <div class="card-header">
+                    <div class="card-title">Code Intelligence CLI</div>
+                    <div class="card-meta">2023</div>
+                </div>
+                <p class="card-description">
+                    Command-line tool that uses AST parsing and machine learning to provide intelligent code suggestions 
+                    and automated refactoring capabilities.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Rust</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">LLVM</span>
+                    <span class="tech-tag">Tree-sitter</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-category-title">Languages</div>
+                    <div class="skill-item">• Python, Go, Rust</div>
+                    <div class="skill-item">• TypeScript, JavaScript</div>
+                    <div class="skill-item">• C++, Java</div>
+                    <div class="skill-item">• SQL, Bash</div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-category-title">Technologies</div>
+                    <div class="skill-item">• Docker, Kubernetes</div>
+                    <div class="skill-item">• PostgreSQL, Redis</div>
+                    <div class="skill-item">• GraphQL, REST APIs</div>
+                    <div class="skill-item">• AWS, GCP</div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-category-title">Frameworks</div>
+                    <div class="skill-item">• React, Next.js</div>
+                    <div class="skill-item">• FastAPI, Django</div>
+                    <div class="skill-item">• TensorFlow, PyTorch</div>
+                    <div class="skill-item">• Tokio, Actix</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Experience</h2>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Software Engineer II</div>
+                    <div class="card-meta">2021 - Present</div>
+                </div>
+                <p class="card-description">
+                    <strong>Nike Inc.</strong><br>
+                    Creating the future of sports through technology. Built microservices architecture handling 10M+ requests daily. Reduced API response times by 60% 
+                    through optimization and caching strategies. Built and maintained ERP systems for order fulfillment and warehouse management for B2B and D2C commitments, worth billions of dollars annually.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Software Engineer</div>
+                    <div class="card-meta">2018 - 2021</div>
+                </div>
+                <p class="card-description">
+                    <strong>MAQ Software</strong><br>
+                    Built real-time project ranking system to monitor performance and status of ongoing projects. Prototyped basic predictive models for customer behavior analysis, improving
+                    personalization for key clients. Improved ETL performance by 60% by optimizing data pipelines and reducing data transfer time. Implemented CI/CD pipelines that reduced deployment time by 75%.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="terminal-prompt">$ echo "Thanks for visiting!"</div>
+            <p>© 2025 Laraib Zafar Khan. Built with vanilla HTML/CSS/JS.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add some subtle interactive effects
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typing effect for terminal prompt
+            const terminalPrompt = document.querySelector('.terminal-prompt');
+            if (terminalPrompt) {
+                const text = terminalPrompt.textContent;
+                terminalPrompt.textContent = '';
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        terminalPrompt.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 50);
+                    }
+                };
+                setTimeout(typeWriter, 1000);
+            }
+
+            // Add random subtle animations to tech tags
+            const techTags = document.querySelectorAll('.tech-tag');
+            techTags.forEach((tag, index) => {
+                tag.style.animationDelay = `${index * 0.1}s`;
+                tag.style.animation = 'fadeIn 0.6s ease forwards';
+            });
+        });
+
+        // Console easter egg
+        console.log('%c👋 Hey there, fellow developer!', 'color: #5865f2; font-size: 20px; font-weight: bold;');
+        console.log('%cLooking for the source? It\'s all right here - no build process needed!', 'color: #999; font-size: 14px;');
+        console.log('%cFeel free to inspect, learn, and adapt!', 'color: #999; font-size: 14px;');
+    </script>
+</body>
+</html>
